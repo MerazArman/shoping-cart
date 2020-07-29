@@ -25,11 +25,11 @@
 
                             <div class="col-md-5 center-item">
                                 <div class="input-group number-spinner">
-                                    <button id="minus-chinho" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                                    <button id="phone-decrease" class="btn btn-default"><i class="fas fa-minus"></i></button>
                                     <input id="phone-input" type="text" class="form-control text-center" value="1">
-                                    <button id="plus-chinho" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                                    <button id="phone-increase" class="btn btn-default"><i class="fas fa-plus"></i></button>
                                 </div>
-                                <h5>$ <span id="price"> 100 </span></h5>
+                                <h5>$ <span id="phone-total"> 100 </span></h5>
                                 <img src="images/remove.png" alt="" class="remove-item">
                             </div>
                         </div>
@@ -43,12 +43,12 @@
                             </div>
                             <div class="col-md-5 center-item">
                                 <div class="input-group number-spinner">
-                                    <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                                    <input type="text" class="form-control text-center" value="1">
-                                    <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                                    <button id="case-decrease" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                                    <input id="case-input" type="text" class="form-control text-center" value="1">
+                                    <button id="case-increase" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                                 </div>
-                                <h5>$59</h5>
+                                <h5><span id="case-total">$50</span> </h5>
                                 <img src="images/remove.png" alt="" class="remove-item">
                             </div>
                         </div>
@@ -82,27 +82,63 @@
 
 
     <script>
-        document.getElementById('plus-chinho').addEventListener('click', function() {
-            let phoneInput = document.getElementById('phone-input');
-            phoneCount = parseInt(phoneInput.value)
-            let phoneNewCount = phoneCount + 1;
-            phoneInput.value = phoneNewCount;
-            let phonePrice = phoneNewCount * 100;
-            document.getElementById('price').innerText = phonePrice;
+        //document.getElementById('plus-chinho').addEventListener('click', function() {
+
+        //     let phoneInput = document.getElementById('phone-input');
+        //     phoneCount = parseInt(phoneInput.value)
+        //     let phoneNewCount = phoneCount + 1;
+        //     phoneInput.value = phoneNewCount;
+        //     let phonePrice = phoneNewCount * 100;
+        //     document.getElementById('price').innerText = phonePrice;
 
 
 
 
-        });
+        //});
 
-        document.getElementById('minus-chinho').addEventListener('click', function() {
-            let phoneInput = document.getElementById('phone-input');
-            let phoneCount = parseInt(phoneInput.value);
-            let phoneNewCount = phoneCount - 1;
-            phoneInput.value = phoneNewCount;
-            var phonePrice = phoneNewCount * 100;
-            document.getElementById('price').innerText = phonePrice;
-        });
+        // document.getElementById('minus-chinho').addEventListener('click', function() {
+
+        //     let phoneInput = document.getElementById('phone-input');
+        //     let phoneCount = parseInt(phoneInput.value);
+        //     let phoneNewCount = phoneCount - 1;
+        //     phoneInput.value = phoneNewCount;
+        //     var phonePrice = phoneNewCount * 100;
+        //     document.getElementById('price').innerText = phonePrice;
+
+
+        //});
+
+        function handleProduct(id, product, isIncrease) {
+            document.getElementById(id).addEventListener('click', function() {
+
+
+                let phoneAndCaseInput = document.getElementById(product + '-input');
+                let phoneAndCaseCount = parseInt(phoneAndCaseInput.value);
+                let phoneNewCount = phoneAndCaseCount;
+                if (isIncrease == false && phoneAndCaseCount > 0) {
+                    NewCount = phoneAndCaseCount - 1;
+                };
+                if (isIncrease == true) {
+                    NewCount = phoneAndCaseCount + 1;
+                };
+                phoneAndCaseInput.value = NewCount;
+                //var Price = NewCount * 100;
+                var productPrice = 0;
+                if (product == 'phone') {
+                    productPrice = NewCount * 100
+                }
+                if (product == 'case') {
+                    productPrice = NewCount * 50
+                }
+                document.getElementById(product + '-total').innerText = productPrice;
+
+            });
+        };
+
+        handleProduct('phone-increase', 'phone', true);
+        handleProduct('phone-decrease', 'phone', false);
+        handleProduct('case-increase', 'case', true);
+        handleProduct('case-decrease', 'case', false);
     </script>
 
 </body>
